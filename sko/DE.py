@@ -19,7 +19,7 @@ class DE(GeneticAlgorithmBase):
     def __init__(self, func, n_dim, F=0.5,
                  size_pop=50, max_iter=200, prob_mut=0.3,
                  lb=-1, ub=1,
-                 constraint_eq=[], constraint_ueq=[]):
+                 constraint_eq=tuple(), constraint_ueq=tuple()):
         super().__init__(func, n_dim, size_pop, max_iter, prob_mut,
                          constraint_eq=constraint_eq, constraint_ueq=constraint_ueq)
 
@@ -33,7 +33,7 @@ class DE(GeneticAlgorithmBase):
         self.X = np.random.uniform(low=self.lb, high=self.ub, size=(self.size_pop, self.n_dim))
         return self.X
 
-    def chrom2x(self):
+    def chrom2x(self, Chrom):
         pass
 
     def ranking(self):
@@ -89,11 +89,11 @@ class DE(GeneticAlgorithmBase):
 
             # record the best ones
             generation_best_index = self.Y.argmin()
-            self.generation_best_X.append(self.X[generation_best_index, :])
+            self.generation_best_X.append(self.X[generation_best_index, :].copy())
             self.generation_best_Y.append(self.Y[generation_best_index])
             self.all_history_Y.append(self.Y)
 
         global_best_index = np.array(self.generation_best_Y).argmin()
         global_best_X = self.generation_best_X[global_best_index]
-        global_best_Y = self.func(global_best_X)
+        global_best_Y = self.func(np.array([global_best_X]))
         return global_best_X, global_best_Y

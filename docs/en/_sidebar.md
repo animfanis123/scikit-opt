@@ -2,3 +2,4 @@
 * [More Genetic Algorithm](en/more_ga.md)
 * [More Particle Swarm Optimization](en/more_pso.md)
 * [More Simulated Annealing](en/more_pso.md)
+* [Speed Up](en/speed_up.md)
